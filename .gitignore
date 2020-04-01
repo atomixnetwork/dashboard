@@ -1,0 +1,7 @@
+tcl/
+Scripts/
+Lib/
+Include/
+__pycache__/
+.vscode/
+.env
