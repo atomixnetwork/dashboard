@@ -45,7 +45,7 @@
                 <div class="site-header-inner">
                     <div class="brand header-brand">
                         <h3 class="m-0">
-                            AtomiX Network.
+                            AtomiX Network
                         </h3>
                     </div>
                 </div>
@@ -95,24 +95,58 @@
 						</p>
 
                         <div class="hero-browser">
-							<h3 class="hero-title mt-0 is-revealing">Select chains to Swap</h3>
+							<h3 class="hero-title mt-0 is-revealing">Select chains to Swap Tokens</h3>
 
 							<div>
-								<section>
-
-									<select class="cs-select cs-skin-slide" id="chain1">
-										<option value="Binance">Binance</option>
-										<option value="Ethereum">Ethereum</option>
-										<option value="EOS">EOS</option>
-									</select>
-
-									<select class="cs-select cs-skin-slide" id="chain2">
-										<option value="Binance">Binance</option>
-										<option value="Ethereum">Ethereum</option>
-										<option value="EOS">EOS</option>
-									</select>
-								</section>
-
+								<style>
+									.swapWrapper {
+										display: flex;
+									}
+									.row {
+										display: flex;
+										flex-direction: row;
+										flex-wrap: wrap;
+										width: 100%;
+										align-items: center;
+									}
+									.column {
+										display: flex;
+										flex-direction: column;
+										flex-basis: 100%;
+										flex: 1;
+										height: auto;
+										align-items: center;
+										width: -webkit-fill-available;
+									}
+									@media screen and (max-width: 800px){
+										.row {
+											flex-direction: column;
+										}
+									}
+								</style>
+								<div class="swapWrapper">
+									<div class="row">
+									  <div class="column">
+										<select class="cs-select cs-skin-slide" id="chain1">
+											<option value="Binance">Binance</option>
+											<option value="Ethereum">Ethereum</option>
+											<option value="EOS">EOS</option>
+										</select>
+									  </div>
+									  <div class="column" style="max-width: fit-content;font-size: 30px;">
+										<div>
+										  ➡
+										</div>
+									  </div>
+									  <div class="column">
+										<select class="cs-select cs-skin-slide" id="chain2">
+											<option value="Binance">Binance</option>
+											<option value="Ethereum">Ethereum</option>
+											<option value="EOS">EOS</option>
+										</select>
+									  </div>
+									</div>
+								</div>
 							</div>
 
 							<div class="hero-cta is-revealing">

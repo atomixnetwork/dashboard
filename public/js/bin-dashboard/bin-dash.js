@@ -65,7 +65,7 @@ async function historyUpdate(){
             let html = "<tr> \
             <td data-label='From'><a style='text-decoration:none;' href='https://testnet-explorer.binance.org/address/"+(txndata['fromAddr'])+"' target='_blank'>"+trimTxnHashl(txndata['fromAddr'])+"</a></td> \
             <td data-label='To'><a style='text-decoration:none;' href='https://testnet-explorer.binance.org/address/"+txndata['toAddr']+"' target='_blank'>"+trimTxnHashl(txndata['toAddr'])+"</td> \
-            <td data-label='TxType'>"+txndata['txType']+"</td> \
+            <td data-label='TxType'><span class='sw-label mt-0'>"+txndata['txType']+"</span></td> \
             <td data-label='Amount'>"+parseFloat(txndata['value']).toFixed(2)+"</td> \
             <td data-label='Txn'><a style='text-decoration:none;' href='https://testnet-explorer.binance.org/tx/"+txnHash+"' target='_blank'>"+txnHashTrim+"</a></td> \
             </tr>";

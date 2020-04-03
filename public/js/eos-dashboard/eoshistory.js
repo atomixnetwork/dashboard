@@ -65,10 +65,10 @@ async function historyUpdate(){
             let txnHashTrim = trimTxnHash(txnHash);
 
             let html = "<tr> \
-            <td data-label='From'><a style='text-decoration:none;' href='https://jungle.eosq.app/account/"+txndata['from']+"' target='_blank'>"+txndata['from']+"</td> \
-            <td data-label='To'><a style='text-decoration:none;' href='https://jungle.eosq.app/account/"+txndata['to']+"' target='_blank'>"+txndata['to']+"</td> \
+            <td data-label='From'><a style='text-decoration:none;' href='https://jungle.bloks.io/account/"+txndata['from']+"' target='_blank'>"+txndata['from']+"</td> \
+            <td data-label='To'><a style='text-decoration:none;' href='https://jungle.bloks.io/account/"+txndata['to']+"' target='_blank'>"+txndata['to']+"</td> \
             <td data-label='Amount'>"+txndata['amount']+"</td> \
-            <td data-label='Txn'><a style='text-decoration:none;' href='https://jungle.eosq.app/tx/"+txnHash+"' target='_blank'>"+txnHashTrim+"</a></td> \
+            <td data-label='Txn'><a style='text-decoration:none;' href='https://jungle.bloks.io/transaction/"+txnHash+"' target='_blank'>"+txnHashTrim+"</a></td> \
             </tr>";
 
             eosTxnTable.insertAdjacentHTML('beforeend', html);

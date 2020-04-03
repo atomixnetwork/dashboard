@@ -43,7 +43,7 @@ async function swap(){
         if(obj['data'].substring(0, 2) == "0x")
             messageHTML = "<a href='https://ropsten.etherscan.io/tx/"+obj['data']+"' target='_blank'>View Your Transaction</a>";
         else
-            messageHTML = "<a href='https://jungle.eosq.app/tx/"+obj['data']+"' target='_blank'>View Your Transaction</a>";
+            messageHTML = "<a href='https://jungle.bloks.io/transaction/"+obj['data']+"' target='_blank'>View Your Transaction</a>";
     }
     else{
         messageTitle = "Error"
