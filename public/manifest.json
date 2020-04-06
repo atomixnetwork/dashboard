@@ -1,8 +1,8 @@
 {
   "name": "AtomiX Network",
   "short_name": "AtomiX",
-  "theme_color": "#040404",
-  "background_color": "#040404",
+  "theme_color": "#0C0E12",
+  "background_color": "#0C0E12",
   "display": "standalone",
   "Scope": "/",
   "start_url": "/",

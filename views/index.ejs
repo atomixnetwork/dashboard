@@ -231,23 +231,7 @@
 			</div>
             <div class="container">
                 <div class="site-footer-inner has-top-divider">
-                    <!--
-					<ul class="footer-links list-reset">
-                        <li>
-                            <a href="#">Contact</a>
-                        </li>
-                        <li>
-                            <a href="#">About us</a>
-                        </li>
-                        <li>
-                            <a href="#">FAQ's</a>
-                        </li>
-                        <li>
-                            <a href="#">Support</a>
-                        </li>
-					</ul>
-					-->
-                    <div class="footer-copyright">&copy; 2020 Made with ❤️ by Anudit Nagar</div>
+					<div class="footer-copyright">&copy; 2020 Made with ❤️ by &nbsp;<a href="https://anudit.dev/" target="_blank"> Anudit Nagar</a></div>
                 </div>
             </div>
         </footer>
@@ -265,8 +249,11 @@
 	</script>
 
 	<script src="js/start/start.js"></script>
-
-	<% include partials/tracking %>
+	<script>
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.register('serviceworker.js');
+		}
+	</script>
 
 </body>
 </html>

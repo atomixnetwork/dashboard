@@ -25,11 +25,9 @@ async function init(){
 
 async function updateDetails(){
 
-    document.getElementById("accAdd").innerText = trimAdd(web3.eth.defaultAccount);
-    accEthBal = await getEthBalance();
-    document.getElementById("accEthBal").innerText = (accEthBal/(10**18)).toFixed(2);
-    accTokenBal = await getTokenBalance();
-    document.getElementById("accTokenBal").innerText = (accTokenBal/(10**18)).toFixed(2);
+    document.getElementById("accAdd").innerText = trimAdd(ethereum.selectedAddress);
+    document.getElementById("accEthBal").innerText = parseFloat(web3.fromWei(await getEthBalance())).toFixed(2);
+    document.getElementById("accTokenBal").innerText = parseInt(await getTokenBalance());
 
 }
 

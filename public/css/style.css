@@ -1183,7 +1183,7 @@ div.cs-select:focus {
     position: relative;
     cursor: pointer;
     padding-top: 15px;
-    padding-left: 60px !important;
+    text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis
@@ -1303,7 +1303,7 @@ div.cs-skin-slide::before {
 
 @media screen and (max-width: 30em) {
     .cs-skin-slide .cs-options {
-        padding-top:3em
+        padding-top:2em
     }
 }
 
@@ -1355,7 +1355,8 @@ div.cs-skin-slide::before {
     letter-spacing: 2px;
     font-size: 65%;
     padding: 0.8em 0.5em 0.8em 0.5em;
-    padding-left: 0px !important
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
 
 .cs-skin-slide .cs-options li span:hover,.cs-skin-slide .cs-options li.cs-focus span,.cs-skin-slide .cs-options li.cs-selected span {

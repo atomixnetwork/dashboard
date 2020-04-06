@@ -7,8 +7,8 @@ window.addEventListener('load', async () => {
         try {
                 await ethereum.enable();
                 web3.version.getNetwork((err, netId) => {
-                    if(netId != 3){
-                        showModal(title="Error", body="Please switch to the Ropsten Testnet");
+                    if(netId != 16110){
+                        showModal(title="Error", body="Please switch to https://betav2.matic.network");
                     }
                   })
                 init();
@@ -21,10 +21,10 @@ window.addEventListener('load', async () => {
                 showModal(title="Error", body="MetaMask Denied");
         }
 
-    } else if (window.web3 || window.web3.currentProvider.isTrust || window.web3.currentProvider.isToshi) {
+    } else if (window.web3) {
         web3.version.getNetwork((err, netId) => {
-            if(netId != 3){
-                showModal(title="Error", body="Please switch to the Ropsten Testnet");
+            if(netId != 16110){
+                showModal(title="Error", body="Please switch to https://betav2.matic.network");
             }
           })
         window.web3 = new Web3(web3.currentProvider);
@@ -33,18 +33,12 @@ window.addEventListener('load', async () => {
         Coin = CoinContract.at(CoinAddress);
 
         init();
-    }else{
-        // window.web3  = new Web3(window.web3.currentProvider);
-        // web3 = new Web3(new Web3.providers.HttpProvider("https://kovan.infura.io/v3/8f68025ea6a8425cb75ae44591a8b1b3"));
-        // web3.eth.defaultAccount = web3.eth.accounts[0];
-        // init();
+    } else {
         showModal(title="Error", body="Install a Browser which supports Web3");
-
     }
 });
 
 document.getElementsByClassName("close-modal")[0].addEventListener("click", closeModal);
-// var CoinContract = web3.eth.contract(coinABI);
 
 async function testConnection() {
     try{
@@ -116,6 +110,6 @@ function showModal(title="", body=""){
     console.log("MODAL || title:"+title+" body : "+body);
 }
 
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('serviceworker.js');
-}
+// if ('serviceWorker' in navigator) {
+//     navigator.serviceWorker.register('../serviceworker.js');
+// }

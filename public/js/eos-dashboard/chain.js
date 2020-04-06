@@ -1,9 +1,6 @@
-let t_accEthBal = 0;
-let t_accAncBal = 0;
-
 async function getEthBalance() {
     let promise = new Promise((res, rej) => {
-        web3.eth.getBalance(web3.eth.defaultAccount, function(error, result) {
+        web3.eth.getBalance(ethereum.selectedAddress, function(error, result) {
             if (!error)
                 res(result);
             else
@@ -11,13 +8,12 @@ async function getEthBalance() {
         });
     });
     let result = await promise;
-    t_accEthBal = result;
-    return t_accEthBal;
+    return result;
 }
 
 async function getTokenBalance() {
     let promise = new Promise((res, rej) => {
-        Coin.balanceOf(web3.eth.defaultAccount, function(error, result) {
+        Coin.balanceOf(ethereum.selectedAddress, function(error, result) {
             if (!error)
                 res(result);
             else
@@ -25,6 +21,5 @@ async function getTokenBalance() {
         });
     });
     let result = await promise;
-    t_accAncBal = result;
-    return t_accAncBal;
+    return result;
 }
