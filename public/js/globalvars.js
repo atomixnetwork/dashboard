@@ -1,7 +1,8 @@
 var erc20Name = "<%= erc20Name %>";
 var bep2name = "<%= bep2Name %>";
 
-var endpoint = "http://127.0.0.1:5000";
+// var endpoint = "http://127.0.0.1:5000";
+var endpoint = "http://13.84.135.80";
 
 var binanceAddress = "tbnb16uq5gcvg25psr2gqt5y0svn4j53n39lzxkuvl7";
 
