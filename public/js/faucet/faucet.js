@@ -25,17 +25,20 @@ async function init(){
 
 async function updateDetails(){
 
-    document.getElementById("accAdd").innerText = trimAdd(web3.eth.defaultAccount);
-    accEthBal = await getEthBalance();
-    document.getElementById("accEthBal").innerText = (accEthBal/(10**18)).toFixed(2);
-    accTokenBal = await getTokenBalance();
-    document.getElementById("accTokenBal").innerText = (accTokenBal/(10**18)).toFixed(2);
+    document.getElementById("accAdd").innerText = trimAdd(ethereum.selectedAddress);
+    let userContract = await getUserContract();
+    console.log("userContract:", userContract)
+    document.getElementById("wallAdd").innerText = trimAdd(userContract.userContract);
+    document.getElementById("accEthBal").innerText = parseFloat(web3.fromWei(await getEthBalance())).toFixed(2);
+    document.getElementById("accTokenBal").innerText = parseFloat(web3.fromWei(await getTokenBalance(userContract.userContract))).toFixed(2);
 
 }
 
 async function getTokens(){
 
     document.getElementById("formGetTokenSubmit").innerHTML = "Processing";
+    let userContract = await getUserContract();
+
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -44,23 +47,20 @@ async function getTokens(){
             let obj =  JSON.parse(this.responseText);
             if(obj['success'] == true){
                 messageTitle = "Success"
-                messageHTML = "<a href='https://ropsten.etherscan.io/tx/"+obj['data']+"' target='_blank'>View Your Transaction</a>";
+                messageHTML = "<a href='https://betav2-explorer.matic.network/tx/"+obj['data']+"' target='_blank'>View Your Transaction</a>";
                 document.getElementById("formGetTokenSubmit").innerHTML = "Thanks";
             }
             else{
                 messageTitle = "Hold On";
                 messageHTML = obj['data'];
-                document.getElementById("formGetTokenSubmit").innerHTML = "Get Tokens";
+                document.getElementById("formGetTokenSubmit").innerHTML = "Get Tokens ✨";
             }
             showModal(title=messageTitle, body=messageHTML);
         }
     };
     xhttp.open("POST", endpoint + "/faucet", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("add="+ web3.eth.defaultAccount );
-
-
-
+    xhttp.send("add="+ userContract.userContract );
 
 }
 

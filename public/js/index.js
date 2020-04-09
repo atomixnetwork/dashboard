@@ -1,30 +1,71 @@
-var CoinContract;
-var Coin;
+let CoinContract = undefined;
+let Coin = undefined;
+let biconomy;
 
 window.addEventListener('load', async () => {
-    if (window.ethereum) {
-        window.web3 = new Web3(ethereum);
-        try {
-                await ethereum.enable();
-                web3.version.getNetwork((err, netId) => {
-                    if(netId != 16110){
-                        showModal(title="Error", body="Please switch to https://betav2.matic.network");
-                    }
-                  })
-                init();
-                web3.eth.defaultAccount = web3.eth.accounts[0];
-                CoinContract = web3.eth.contract(coinABI);
-                Coin = CoinContract.at(CoinAddress);
+    if (typeof window.ethereum !== 'undefined') {
+        ethereum.on('accountsChanged', function (accounts) {
+            window.location.reload();
+        })
 
-        } catch (error) {
-                console.log(error);
-                showModal(title="Error", body="MetaMask Denied");
+        ethereum.on('chainChanged', function (netId) {
+            if(netId != 16110){
+                showModal("Warning ⚠", "Please switch to https://betav2.matic.network");
+            }
+        })
+        // window.web3 = new Web3(ethereum);
+        // try {
+            // 	await ethereum.enable();
+            // 	web3.version.getNetwork((err, netId) => {
+                // 		if(netId != 16110){
+                    // 			alert("Please switch to https://betav2.matic.network");
+                    // 		}
+                    // 	});
+                    // 	CoinContract = web3.eth.contract(coinABI);
+                    //  Coin = CoinContract.at(CoinAddress);
+
+                    // } catch (error) {
+                        // 	console.log(error);
+                        // 	alert("MetaMask Denied");
+                        // }
+
+        if (window.Biconomy) {
+            let Biconomy = window.Biconomy;
+            let options = {
+                dappId: '5e8af105f64c16288c945039',
+                apiKey: 'rpC-RfNiI.9aa40a94-c6a2-4434-a46c-77e9c60ea239',
+                strictMode: false,
+                debug: true
+            };
+            biconomy = new Biconomy(window.ethereum, options);
+            console.log(biconomy);
+            web3 = new Web3(biconomy);
         }
+
+        biconomy.onEvent(biconomy.READY, async () => {
+            await ethereum.enable();
+            console.table(biconomy.dappAPIMap);
+            if(!biconomy.isLogin) {
+                await biconomyLogin();
+            }
+
+            web3.version.getNetwork((err, netId) => {
+                if(netId != 16110){
+                    showModal("Warning ⚠", "Please switch to https://betav2.matic.network");
+                }
+            });
+            CoinContract = web3.eth.contract(coinABI);
+            Coin = CoinContract.at(CoinAddress);
+            await init();
+
+        }).onEvent(biconomy.ERROR, (error, message) => {
+            console.log("Mexa Error", error);
+        });
 
     } else if (window.web3) {
         web3.version.getNetwork((err, netId) => {
             if(netId != 16110){
-                showModal(title="Error", body="Please switch to https://betav2.matic.network");
+                showModal("Warning ⚠", "Please switch to https://betav2.matic.network");
             }
           })
         window.web3 = new Web3(web3.currentProvider);
@@ -34,9 +75,51 @@ window.addEventListener('load', async () => {
 
         init();
     } else {
-        showModal(title="Error", body="Install a Browser which supports Web3");
+        showModal("Warning 🚨", "Get a Web3 Compatible Browser");
     }
 });
+
+async function biconomyLogin(){
+
+	let promise = new Promise(async (res, rej) => {
+
+		try{
+
+			biconomy.login(await biconomy.getUserAccount(), (error, response) => {
+				if(response.transactionHash) {
+					console.log("New User");
+					res(true);
+				} else if(response.userContract) {
+					console.log("Existing User Contract: " + response.userContract);
+					res(true);
+				}
+			});
+
+			biconomy.onEvent(biconomy.LOGIN_CONFIRMATION, (log) => {
+				console.log(`User contract wallet address: ${log.userContract}`);
+			});
+
+		 } catch(error) {
+			console.log(`Error Code: ${error.code} Error Message: ${error.message}`);
+			rej(false);
+		 }
+
+    });
+	let result = await promise;
+    console.log(result);
+    return result;
+
+}
+
+async function getUserContract(){
+
+    if (biconomy){
+        return biconomy.getUserContract(await biconomy.getUserAccount())
+    }
+    else{
+        return "0x000000000"
+    }
+}
 
 document.getElementsByClassName("close-modal")[0].addEventListener("click", closeModal);
 

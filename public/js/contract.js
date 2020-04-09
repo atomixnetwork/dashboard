@@ -11,9 +11,9 @@ async function getEthBalance() {
     return result;
 }
 
-async function getTokenBalance() {
+async function getTokenBalance(_address = ethereum.selectedAddress) {
     let promise = new Promise((res, rej) => {
-        Coin.balanceOf(ethereum.selectedAddress, function(error, result) {
+        Coin.balanceOf(_address, function(error, result) {
             if (!error)
                 res(result);
             else

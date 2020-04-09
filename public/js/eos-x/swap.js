@@ -26,10 +26,48 @@ async function init(){
 async function updateDetails(){
 
     document.getElementById("accAdd").innerText = trimAdd(ethereum.selectedAddress);
+    let userContract = await getUserContract();
+    console.log("userContract:", userContract)
+    document.getElementById("wallAdd").innerText = trimAdd(userContract.userContract);
     document.getElementById("accEthBal").innerText = parseFloat(web3.fromWei(await getEthBalance())).toFixed(2);
-    document.getElementById("accTokenBal").innerText = parseInt(await getTokenBalance());
+    document.getElementById("accTokenBal").innerText = parseFloat(web3.fromWei(await getTokenBalance(userContract.userContract))).toFixed(2);
 
 }
+
+async function tokenSwap() {
+    if (await testConnection()){
+        let txnHash = document.getElementById("txnHash").value ;
+
+        if (txnHash.length == 71){
+            let promise = new Promise((res, rej) => {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        console.log(this.responseText)
+                        res(this.responseText)
+                    }
+                };
+                xhttp.open("POST", endpoint + "/eos-x", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send("txnHash=" + txnHash );
+            });
+        }
+        else{
+            return {
+                'success':false,
+                'data':"Invalid Txn Hash"
+            }
+        }
+
+        let result = await promise;
+        return JSON.parse(result);
+    }
+    else{
+        return false;
+    }
+
+}
+
 
 async function swap(){
 

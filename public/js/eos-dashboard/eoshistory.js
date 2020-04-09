@@ -34,8 +34,11 @@ if (localStorage.getItem('eosAdd') != null) {
 async function updateDetails(){
 
     document.getElementById("accAdd").innerText = trimAdd(ethereum.selectedAddress);
+    let userContract = await getUserContract();
+    console.log("userContract:", userContract)
+    document.getElementById("wallAdd").innerText = trimAdd(userContract.userContract);
     document.getElementById("accEthBal").innerText = parseFloat(web3.fromWei(await getEthBalance())).toFixed(2);
-    document.getElementById("accTokenBal").innerText = parseInt(await getTokenBalance());
+    document.getElementById("accTokenBal").innerText = parseFloat(web3.fromWei(await getTokenBalance(userContract.userContract))).toFixed(2);
 
     await historyUpdate();
 
@@ -48,11 +51,10 @@ async function historyUpdate(){
         eosTxnTable.removeChild(eosTxnTable.firstChild);
     }
 
-    // fetch("https://junglehistory.cryptolions.io/v2/history/get_transfers?symbol=ANT&contract=antestacc111")
     fetch("https://junglehistory.cryptolions.io/v2/history/get_actions?account=antestacc111&limit=10&sort=desc")
     .then((resp) => resp.json())
     .then(function(data) {
-
+        console.log(data);
         let actions  = data['actions'];
         for(actionIndex in actions){
             if(actionIndex > 10)
@@ -65,7 +67,8 @@ async function historyUpdate(){
             let html = "<tr> \
             <td data-label='From'><a style='text-decoration:none;' href='https://jungle.bloks.io/account/"+txndata['from']+"' target='_blank'>"+txndata['from']+"</td> \
             <td data-label='To'><a style='text-decoration:none;' href='https://jungle.bloks.io/account/"+txndata['to']+"' target='_blank'>"+txndata['to']+"</td> \
-            <td data-label='Amount'>"+txndata['amount']+"</td> \
+            <td data-label='TxType'><span class='sw-label mt-0'>"+actions[actionIndex]['act']['name']+"</span></td> \
+            <td data-label='Amount'>"+txndata['quantity']+"</td> \
             <td data-label='Txn'><a style='text-decoration:none;' href='https://jungle.bloks.io/transaction/"+txnHash+"' target='_blank'>"+txnHashTrim+"</a></td> \
             </tr>";
 

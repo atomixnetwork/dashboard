@@ -32,8 +32,11 @@ if (localStorage.getItem('binAdd') != null) {
 async function updateDetails(){
 
     document.getElementById("accAdd").innerText = trimAdd(ethereum.selectedAddress);
+    let userContract = await getUserContract();
+    console.log("userContract:", userContract)
+    document.getElementById("wallAdd").innerText = trimAdd(userContract.userContract);
     document.getElementById("accEthBal").innerText = parseFloat(web3.fromWei(await getEthBalance())).toFixed(2);
-    document.getElementById("accTokenBal").innerText = parseInt(await getTokenBalance());
+    document.getElementById("accTokenBal").innerText = parseFloat(web3.fromWei(await getTokenBalance(userContract.userContract))).toFixed(2);
 
     await historyUpdate();
 

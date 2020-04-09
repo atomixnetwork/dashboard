@@ -48,12 +48,12 @@
                     <div class="hero-inner">
 
                         <h2 class="hero-paragraph is-revealing" style="margin-top:0px;">
-							<%= title %>
+							<div class="feature-icon" style="display: flex;align-items:center;">
+								<img src="icons/eos.svg" style="height:100px;width:100px;vertical-align: middle;">
+								<span>EOS Dashboard</span>
+							</div>
 						</h2>
 
-                        <!-- <p class="hero-paragraph is-revealing mt-8">
-                            Transfer your tokens to the above address and add the address of the account which would redeem the tokens in the memo
-                        </p> -->
                         <div class="hero-browser">
 
                             <section>
@@ -138,6 +138,7 @@
 								<tr>
 									<th>From</th>
 									<th>To</th>
+									<th>Type</th>
 									<th>Amount</th>
 									<th>Txn</th>
 								</tr>
@@ -172,9 +173,8 @@
 
 	<script src="js/globalvars.js"></script>
 	<script src="js/eos-dashboard/eoshistory.js"></script>
-	<script src="js/eos-dashboard/chain.js"></script>
+	<script src="js/contract.js"></script>
 	<script src="js/index.js"></script>
 
-	<% include partials/tracking %>
 </body>
 </html>
