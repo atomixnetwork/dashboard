@@ -16,6 +16,7 @@ var eos_x_router = require('./routes/eos-x');
 var eos_dashboard_router = require('./routes/eos-dashboard');
 var bin_dashboard_router = require('./routes/bin-dashboard');
 var faucet_router = require('./routes/faucet');
+var ens_router = require('./routes/enslookup');
 
 var app = express();
 app.set('port', process.env.PORT || 8000);
@@ -40,6 +41,7 @@ app.use('/eos-x', eos_x_router);
 app.use('/eos-dashboard', eos_dashboard_router);
 app.use('/binanace-dashboard', bin_dashboard_router);
 app.use('/faucet', faucet_router);
+app.use('/enslookup', ens_router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
