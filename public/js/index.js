@@ -2,7 +2,95 @@ let CoinContract = undefined;
 let Coin = undefined;
 let biconomy;
 
+const Web3Modal = window.Web3Modal.default;
+const WalletConnectProvider = window.WalletConnectProvider.default;
+const Fortmatic = window.Fortmatic;
+const Torus = window.torus;
+const Portis = window.Portis;
+const Arkane = window.Arkane;
+
+
+let web3Modal
+let provider;
+let selectedAccount;
+
+
 window.addEventListener('load', async () => {
+
+    console.log("Initializing example");
+    console.log("WalletConnectProvider is", WalletConnectProvider);
+    console.log("Fortmatic is", Fortmatic);
+
+    // Tell Web3modal what providers we have available.
+    // Built-in web browser provider (only one can exist as a time)
+    // like MetaMask, Brave or Opera is added automatically by Web3modal
+    const providerOptions = {
+
+      walletconnect: {
+        package: WalletConnectProvider,
+        options: {
+          // Mikko's test key - don't copy as your mileage may vary
+          infuraId: "8043bb2cf99347b1bfadfb233c5325c0",
+        }
+      },
+
+      fortmatic: {
+        package: Fortmatic,
+        options: {
+          key: "pk_test_391E26A3B43A3350",
+          config: {
+            rpcUrl: 'https://betav2.matic.network',
+            chainId: 16110
+          }
+
+        }
+      },
+
+      torus: {
+        package: Torus,
+        options: {
+          config: {
+            network: {
+                host: "https://betav2.matic.network", // mandatory
+                chainId: 16110, // optional
+                networkName: "Matic Network" // optional
+            },
+            enableLogging: true,
+            buttonPosition: "bottom-left",
+            buildEnv: "production",
+            showTorusButton: true,
+            enabledVerifiers: {
+            }
+          }
+        }
+      },
+
+      portis: {
+        package: Portis,
+        options: {
+          id: "46cabecf-b3a1-4a29-b4b4-b8691b410a39",
+          network: "matic"
+        }
+      },
+
+      arkane: {
+        package: Arkane,
+        options: {
+          clientId: "ARKANE_CLIENT_ID",
+          rpcUrl: 'https://betav2.matic.network',
+        }
+      }
+
+    };
+
+    web3Modal = new Web3Modal({
+        theme: "dark",
+      cacheProvider: false, // optional
+      providerOptions, // required
+    });
+
+    provider = await web3Modal.connect();
+
     if (typeof window.ethereum !== 'undefined') {
         ethereum.on('accountsChanged', function (accounts) {
             window.location.reload();
@@ -17,17 +105,17 @@ window.addEventListener('load', async () => {
         // try {
             // 	await ethereum.enable();
             // 	web3.version.getNetwork((err, netId) => {
-                // 		if(netId != 16110){
-                    // 			alert("Please switch to https://betav2.matic.network");
-                    // 		}
-                    // 	});
-                    // 	CoinContract = web3.eth.contract(coinABI);
-                    //  Coin = CoinContract.at(CoinAddress);
+        // 		if(netId != 16110){
+            // 			alert("Please switch to https://betav2.matic.network");
+            // 		}
+            // 	});
+            // 	CoinContract = web3.eth.contract(coinABI);
+            //  Coin = CoinContract.at(CoinAddress);
 
-                    // } catch (error) {
-                        // 	console.log(error);
-                        // 	alert("MetaMask Denied");
-                        // }
+        // } catch (error) {
+        // 	console.log(error);
+        // 	alert("MetaMask Denied");
+        // }
 
         if (window.Biconomy) {
             let Biconomy = window.Biconomy;
@@ -37,8 +125,8 @@ window.addEventListener('load', async () => {
                 strictMode: false,
                 debug: true
             };
-            biconomy = new Biconomy(window.ethereum, options);
-            console.log(biconomy);
+            biconomy = new Biconomy(provider, options);
+            console.log("Fortmatic is ", biconomy);
             web3 = new Web3(biconomy);
         }
 
@@ -78,6 +166,7 @@ window.addEventListener('load', async () => {
         showModal("Warning 🚨", "Get a Web3 Compatible Browser");
     }
 });
+
 
 async function biconomyLogin(){
 
