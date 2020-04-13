@@ -47,7 +47,10 @@
                         <h3 class="m-0">
                             AtomiX Network
                         </h3>
-                    </div>
+					</div>
+					<div class="brand header-brand">
+						<a class="button button-primary button-shadow" onclick="launchTransak()">Buy Crypto</a>
+					</div>
                 </div>
             </div>
         </header>
@@ -257,11 +260,11 @@
 	</script>
 
 	<script src="js/start/start.js"></script>
+	<script src="https://global.transak.com/sdk/v1.1/widget.js" async></script>
 	<script>
 		if ('serviceWorker' in navigator) {
 			navigator.serviceWorker.register('serviceworker.js');
 		}
 	</script>
-
 </body>
 </html>
