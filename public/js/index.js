@@ -2,12 +2,12 @@ let CoinContract = undefined;
 let Coin = undefined;
 let biconomy;
 
-const Web3Modal = window.Web3Modal.default;
-const WalletConnectProvider = window.WalletConnectProvider.default;
-const Fortmatic = window.Fortmatic;
-const Torus = window.torus;
-const Portis = window.Portis;
-const Arkane = window.Arkane;
+let Web3Modal;
+let WalletConnectProvider;
+let Fortmatic;
+let Torus;
+let Portis ;
+let Arkane ;
 
 
 let web3Modal
@@ -16,6 +16,15 @@ let selectedAccount;
 
 
 window.addEventListener('load', async () => {
+
+
+    Web3Modal = window.Web3Modal.default;
+    WalletConnectProvider = window.WalletConnectProvider.default;
+    Fortmatic = window.Fortmatic;
+    Torus = window.torus;
+    Portis = window.Portis;
+    Arkane = window.Arkane;
+
 
     console.log("Initializing example");
     console.log("WalletConnectProvider is", WalletConnectProvider);
